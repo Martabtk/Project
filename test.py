@@ -5,6 +5,9 @@ from currencies import Currency
 # from currencies import Currency (chciałam zamiast tworzenia listy walut ,pobrać ją z biblioteki currencies,ale nie wiem potem jak sprawdzić ,czy otrzymana przez input waluta jest w danej bibliotece
 
 import  json
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 print ("Kurs walut NBP")
 
@@ -38,11 +41,26 @@ print(dane)
 kurs = dane['rates']
 print (kurs)
 df = pd.DataFrame(kurs)
-print (df)
-#for item in dane['rates']:
-#    data = item['rates']['effectiveDate']['data']
-#    kurs = item['rates']['mid']['kurs']
-#    print (data, kurs)
+print(df)
+df.drop('no', axis=1, inplace=True)
+print(df)
+
+df.rename(
+    columns=({ 'effectiveDate':'Data', 'mid':' Kurs'}),
+    inplace=True,
+)
+print(df)
+x = df['Data']
+y = df['Kurs']
+#df['MA_5'] = df['Kurs'].rolling(5).mean
 
 
+plt.figure(figsize=(10,10))
+plt.plot(x, y, label='Kurs')
+#plt.plot(df['MA_5'], label='MA_5')
+plt.legend(loc=2)
+plt.xlabel("Data")
+plt.ylabel('Wartość w PLN')
+plt.title ("Średni kurs " + currency + " między ( " + start_date + ' do ' + end_date + ' )' )
+plt.show()
 
