@@ -1,6 +1,5 @@
 import sys
 from PySide6.QtWidgets import QApplication
-from PySide6.QtUiTools import QUiLoader
 import pandas as pd
 from requests import get
 from datetime import time
